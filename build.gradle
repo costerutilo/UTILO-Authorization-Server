@@ -1,0 +1,63 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '3.0.1'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'eu.utilo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.security:spring-security-oauth2-authorization-server:1.0.0'
+	// Apache Commons
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	// https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path
+	implementation 'com.jayway.jsonpath:json-path:2.7.0'
+	// https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
+	compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+	// https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt
+	implementation 'com.nimbusds:nimbus-jose-jwt:9.24.4'
+	// https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
+	implementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
+	// https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
+	implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
+
+	// verhindern von Circular view path bei gleichem Template /login wie @GetMapping("/login")
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.0.1'
+
+	// JUnit5 für Unit Tests:
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// Spring Security Tests:
+	testImplementation 'org.springframework.security:spring-security-test'
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

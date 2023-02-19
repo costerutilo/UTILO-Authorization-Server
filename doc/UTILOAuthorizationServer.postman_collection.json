@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "9f1f2755-cb51-42e4-b89c-d6cb2a6c022d",
+		"name": "UTILOAuthorizationServer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "openid-configuration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/.well-known/openid-configuration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						".well-known",
+						"openid-configuration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/oauth2/authorize - öffnet Login für User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:9000/oauth2/authorize?response_type=code&client_id=utilo-client&scope=openid&redirect_uri=http://127.0.0.1:9000/test/utilo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9000",
+					"path": [
+						"oauth2",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "client_id",
+							"value": "utilo-client"
+						},
+						{
+							"key": "scope",
+							"value": "openid"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://127.0.0.1:9000/test/utilo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "oauth2/login Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:9000/oauth2/login?username=utilo&password=utilo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9000",
+					"path": [
+						"oauth2",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "utilo"
+						},
+						{
+							"key": "password",
+							"value": "utilo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/oauth2/token liefert Token für den User",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilo-client",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "default"
+						},
+						{
+							"key": "code",
+							"value": "eZ9l695zyYKgUcDvGVKmGMFPuM_kgpfnZtA2fMY7SnhstsRjShG79BMFx3UuBVQg206AfDm4PY7vptiprSTDpSBled-ieUIWVm2PdWzsUERkaFPb4uDQ8h8fYdQu1AvW",
+							"type": "default"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9000/oauth2/token",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9000",
+					"path": [
+						"oauth2",
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "utilo-client",
+							"disabled": true
+						},
+						{
+							"key": "client_secret",
+							"value": "secret",
+							"disabled": true
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"disabled": true
+						},
+						{
+							"key": "code",
+							"value": "eZ9l695zyYKgUcDvGVKmGMFPuM_kgpfnZtA2fMY7SnhstsRjShG79BMFx3UuBVQg206AfDm4PY7vptiprSTDpSBled-ieUIWVm2PdWzsUERkaFPb4uDQ8h8fYdQu1AvW",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

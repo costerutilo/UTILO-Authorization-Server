@@ -1,0 +1,9 @@
+# Beispiel Implementierung von Spring Security Server
+https://github.com/andifalk/custom-spring-authorization-server
+
+# Server Konfiguration anzeigen:
+http://localhost:9000/.well-known/openid-configuration
+
+# client ohne Pkce:
+http://127.0.0.1:9000/oauth2/authorize?response_type=code&client_id=utilo-client&scope=openid&redirect_uri=http://127.0.0.1:9000/test/utilo
+

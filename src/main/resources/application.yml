@@ -1,0 +1,5 @@
+# In application.yml we define the active default profile.
+# You can switch between profiles using this configuration.
+spring:
+  profiles:
+    active: dev
