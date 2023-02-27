@@ -1,4 +1,3 @@
-
 package eu.utilo.authorization.configurations;
 
 import eu.utilo.authorization.entity.OauthUser;
@@ -12,14 +11,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
+import org.springframework.security.oauth2.server.authorization.authentication.*;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
@@ -30,8 +34,10 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import javax.sql.DataSource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Spring Security Authorization Servere main config Klasse
@@ -76,6 +82,7 @@ public class AuthorizationServerConfig {
                             // userinfo
                             oidc.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint.userInfoMapper(
                                     oidcUserInfoAuthenticationContext -> {
+
                                         OAuth2AccessToken accessToken =
                                                 oidcUserInfoAuthenticationContext.getAccessToken();
                                         Map<String, Object> claims = new HashMap<>();
@@ -86,6 +93,13 @@ public class AuthorizationServerConfig {
 
                                     }));
                         }
+                );
+
+        /* erlaube localhost in redirect_uri */
+        authorizationServerConfigurer
+                .authorizationEndpoint(authorizationEndpoint ->
+                        authorizationEndpoint
+                                .authenticationProviders(configureAuthenticationValidator())
                 );
 
         // Enable OpenID Connect 1.0
@@ -102,6 +116,46 @@ public class AuthorizationServerConfig {
 
     }
 
+    /**
+     * erlaube localhost für redirect_uri
+     * @see //docs.spring.io/spring-authorization-server/docs/current/reference/html/protocol-endpoints.html
+     * @return
+     */
+    private Consumer<List<AuthenticationProvider>> configureAuthenticationValidator() {
+        return (authenticationProviders) ->
+                authenticationProviders.forEach((authenticationProvider) -> {
+                    if (authenticationProvider instanceof OAuth2AuthorizationCodeRequestAuthenticationProvider) {
+                        Consumer<OAuth2AuthorizationCodeRequestAuthenticationContext> authenticationValidator =
+                                // Override default redirect_uri validator
+                                new CustomRedirectUriValidator()
+                                        // Reuse default scope validator
+                                        .andThen(OAuth2AuthorizationCodeRequestAuthenticationValidator.DEFAULT_SCOPE_VALIDATOR);
+
+                        ((OAuth2AuthorizationCodeRequestAuthenticationProvider) authenticationProvider)
+                                .setAuthenticationValidator(authenticationValidator);
+                    }
+                });
+    }
+    /**
+     * erlaube localhost für redirect_uri
+     * @see //docs.spring.io/spring-authorization-server/docs/current/reference/html/protocol-endpoints.html
+     */
+    static class CustomRedirectUriValidator implements Consumer<OAuth2AuthorizationCodeRequestAuthenticationContext> {
+
+        @Override
+        public void accept(OAuth2AuthorizationCodeRequestAuthenticationContext authenticationContext) {
+            OAuth2AuthorizationCodeRequestAuthenticationToken authorizationCodeRequestAuthentication =
+                    authenticationContext.getAuthentication();
+            RegisteredClient registeredClient = authenticationContext.getRegisteredClient();
+            String requestedRedirectUri = authorizationCodeRequestAuthentication.getRedirectUri();
+
+            // Use exact string matching when comparing client redirect URIs against pre-registered URIs
+            if (!registeredClient.getRedirectUris().contains(requestedRedirectUri)) {
+                OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.INVALID_REQUEST);
+                throw new OAuth2AuthorizationCodeRequestAuthenticationException(error, null);
+            }
+        }
+    }
     /**
      * tokens
      */
