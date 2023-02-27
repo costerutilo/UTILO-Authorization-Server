@@ -37,3 +37,4 @@ out/
 .vscode/
 client/AuthorizationClient/node_modules/
 node_modules/
+client/yarn.lock
