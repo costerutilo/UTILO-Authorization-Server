@@ -1,5 +1,7 @@
 server:
   port: 9000
+  ssl:
+    enabled: false
 ---
 logging:
   level:
@@ -13,8 +15,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:9000/oauth2/jwks
-          issuer-uri: http://localhost:9000
+          jwk-set-uri: http://127.0.0.1:9000/oauth2/jwks
+          issuer-uri: http://127.0.0.1:9000
 ---
 spring:
   datasource:

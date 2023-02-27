@@ -89,7 +89,7 @@ public class Bootstrap implements
         if (clientop.isEmpty()) {
 
             /*
-             * default RegisteredClient für UTILO generieren:
+             * default RegisteredClient für Administration generieren:
              * org.springframework.security.oauth2.server.authorization.oidc.web.OidcClientRegistrationEndpointFilter
              */
             RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -101,8 +101,8 @@ public class Bootstrap implements
                     .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                     .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                     .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                    .redirectUri("http://127.0.0.1:9000/test/utilo")
-                    .redirectUri("http://127.0.0.1:9000/test/authorized")
+                    .redirectUri("http://127.0.0.1:9010/admin")
+                    .redirectUri("https://www.utilo.eu")
                     .scope(OidcScopes.OPENID)
                     .scope(OidcScopes.PROFILE)
                     .scope("message.read")

@@ -93,24 +93,29 @@
   async function createToken(code: string) {
 
     const url =  'http://127.0.0.1:9000/oauth2/token';
-    const data = {
-      grant_type: 'authorization_code',
-      code: code,
-      redirect_uri: import.meta.env.VITE_AUTHORIZE_REDIRECT_URI
-    }
-    var credentials = btoa(import.meta.env.VITE_CLIENT_ID + ':' + 'secret');
-    var basicAuth = 'Basic ' + credentials;
-    const config = {
-      headers: {
-        authorization: basicAuth,
-        utilo: 'myTest'
-      },
-      mode: 'no-cors'
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Basic dXRpbG8tY2xpZW50OnNlY3JldA==");
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "authorization_code");
+    // urlencoded.append("code", "yyJTTI3JqNno1XlSW59qxX3CCytMm-ChoHnqVw3iSUGyT6ltT_tpPclQ8bdSyeApO4IWE442irBiRwntJJzae9BIntpC3_vshTgNhAfbsBlkwh3n50jkAxs3hTqavqsy");
+    urlencoded.append("code", code);
+    urlencoded.append("redirect_uri", "https://www.utilo.eu");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
     };
 
-    axios.post(url, data, config)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+    fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
 
   }
 

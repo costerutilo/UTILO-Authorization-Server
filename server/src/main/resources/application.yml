@@ -3,3 +3,6 @@
 spring:
   profiles:
     active: dev
+# Authorization Server Version
+utilo:
+  version: 0.0.1
