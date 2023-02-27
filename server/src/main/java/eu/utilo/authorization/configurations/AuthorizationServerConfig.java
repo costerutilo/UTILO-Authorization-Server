@@ -86,6 +86,10 @@ public class AuthorizationServerConfig {
 
                                     }));
                         }
+
+                        // es gibt noch den clientRegistrationEndpoint der per Default disabled ist
+                        // .clientRegistrationEndpoint()
+
                 );
 
         // Enable OpenID Connect 1.0
