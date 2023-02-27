@@ -2,8 +2,6 @@
   <div class="container">
     <h2>Administration</h2>
 
-    {{ code }}
-    <br/>
     {{ token }}
 
   </div>
@@ -37,23 +35,6 @@
     console.log('Admininistrator Client code available: ' + route.query);
     if (route.query && route.query.code) {
       code.value = '' + route.query.code;
-      createToken(code.value);
-    }
-
-  }
-
-  async function createToken(code: string) {
-
-    const url =  'http://127.0.0.1:9000/oauth2/token';
-
-    var credentials = btoa(import.meta.env.VITE_CLIENT_ID + ':' + 'secret');
-    var basicAuth = 'Basic ' + credentials;
-
-    var myHeaders = new Headers();
-    //myHeaders.append("Authorization", "Basic dXRpbG8tY2xpZW50OnNlY3JldA==");
-    myHeaders.append("Authorization", basicAuth);
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
     var urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "authorization_code");
     // urlencoded.append("code", "yyJTTI3JqNno1XlSW59qxX3CCytMm-ChoHnqVw3iSUGyT6ltT_tpPclQ8bdSyeApO4IWE442irBiRwntJJzae9BIntpC3_vshTgNhAfbsBlkwh3n50jkAxs3hTqavqsy");

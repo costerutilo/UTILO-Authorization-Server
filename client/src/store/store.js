@@ -9,6 +9,7 @@ export const useAuthorizationStore = defineStore('authorization', {
   state: {
 
     // showAreas: null,
+    oauthCode: null
 
   },
   mutations: {
@@ -16,11 +17,16 @@ export const useAuthorizationStore = defineStore('authorization', {
     // setShowAreas(state, showAreas) {
     //   state.showAreas = showAreas
     // },
+    setOauthCode(state, oauthCode) {
+      state.oauthCode = oauthCode;
+    }
 
   },
   getters: {
 
     // showAreas:                                          state => state.showAreas,
+    oauthCode:  state => state.oauthCode
 
   }
+
 });
