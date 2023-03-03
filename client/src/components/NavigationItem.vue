@@ -1,18 +1,14 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
     <div class="container">
 
-      <a class="navbar-brand" href="https://www.salzburg-verkehr.at/">
-        <img src="@/assets/Salzburg-Verkehr-Logo.png"
-             width="200"
+      <a class="navbar-brand" href="/">
+        <img :src="'src/assets/logo/' + logo"
+             id="logo"
              class="d-inline-block align-top"
-             alt="Salzburg Verkehr Logo">
+             :alt="logoAlt">
       </a>
 
       <button class="navbar-toggler"
@@ -44,6 +40,18 @@
 
 </template>
 
+<script setup lang="ts">
+
+  // logo aus config
+  const logo: string = import.meta.env.VITE_LOGO;
+  const logoAlt: string = import.meta.env.VITE_LOGO_ALT;
+
+</script>
+
 <style scoped>
+
+  #logo {
+    max-height: 70px;
+  }
 
 </style>

@@ -31,5 +31,4 @@
     getVersion();
   });
 
-
 </script>

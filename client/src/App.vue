@@ -2,13 +2,13 @@
 
   import { RouterView } from 'vue-router';
   import HelloWorld from '@/components/HelloWorld.vue';
-  import Navigation from "@/components/Navigation.vue";
+  import NavigationItem from "@/components/NavigationItem.vue";
 
 </script>
 
 <template>
 
-  <Navigation />
+  <NavigationItem />
   <div class="container">
 
     <HelloWorld msg="SVV Authorization Server" />
