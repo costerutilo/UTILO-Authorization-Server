@@ -93,6 +93,10 @@ public class AuthorizationServerConfig {
 
                                     }));
                         }
+
+                        // es gibt noch den clientRegistrationEndpoint der per Default disabled ist
+                        // .clientRegistrationEndpoint()
+
                 );
 
         /* erlaube localhost in redirect_uri */

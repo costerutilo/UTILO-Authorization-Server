@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import LoginView from "@/views/LoginView.vue";
 import AdminView from "@/views/AdminView.vue";
-import TokenView from "@/views/TokenView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,12 +28,6 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: AdminView,
-      props: route => ( { query: route.query.code } )
-    },
-    {
-      path: '/token',
-      name: 'token',
-      component: TokenView,
       props: route => ( { query: route.query.code } )
     },
   ]
