@@ -60,7 +60,7 @@
     urlencoded.append("code", code);
     urlencoded.append("redirect_uri", "https://www.utilo.eu");
 
-    var requestOptions = {
+    let requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: urlencoded,
@@ -72,6 +72,54 @@
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
 
+  }
+
+  async function getToken(code: string) {
+
+    console.info('getToken', code);
+    const params = {
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: import.meta.env.VITE_AUTHORIZE_REDIRECT_URI,
+    };
+
+    var credentials = btoa(import.meta.env.VITE_CLIENT_ID + ':' + 'secret');
+    var basicAuth = 'Basic ' + credentials;
+
+    axios.post(
+        'oauth2/token',
+        params,
+    ).then(response => token.value = response.data);
+
+    const user = await axios.post(
+        'oauth2/token',
+        { headers: { 'Authorization': basicAuth } }
+    );
+
+  }
+
+  async function getAuthToken(code: string) {
+
+    var credentials = btoa(import.meta.env.VITE_CLIENT_ID + ':' + 'secret');
+    var basicAuth = 'Basic ' + credentials;
+    console.info('Basic', credentials)
+
+    const data = new URLSearchParams();
+    data.append('grant_type', 'authorization_code');
+    data.append('code', code);
+    data.append('redirect_uri', import.meta.env.VITE_AUTHORIZE_REDIRECT_URI);
+    const fetchAuthToken = await axios({
+      url: 'oauth2/token',
+      method: 'POST',
+      headers: {
+        'authorization': basicAuth,
+        'utilo': 'test'
+      },
+      data,
+      withCredentials: true,
+    });
+
+    return fetchAuthToken;
 
   }
 
