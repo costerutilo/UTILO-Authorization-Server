@@ -34,4 +34,22 @@ public class OauthClient {
     @Column(length = 2000)
     private String tokenSettings;
 
+    public OauthClient(String id, String clientId, Date clientIdIssuedAt, String clientSecret, Date clientSecretExpiresAt, String clientName, String clientAuthenticationMethods, String authorizationGrantTypes, String redirectUris, String scopes, String clientSettings, String tokenSettings) {
+        this.id = id;
+        this.clientId = clientId;
+        this.clientIdIssuedAt = clientIdIssuedAt;
+        this.clientSecret = clientSecret;
+        this.clientSecretExpiresAt = clientSecretExpiresAt;
+        this.clientName = clientName;
+        this.clientAuthenticationMethods = clientAuthenticationMethods;
+        this.authorizationGrantTypes = authorizationGrantTypes;
+        this.redirectUris = redirectUris;
+        this.scopes = scopes;
+        this.clientSettings = clientSettings;
+        this.tokenSettings = tokenSettings;
+    }
+
+    public OauthClient() {
+    }
+
 }

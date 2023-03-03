@@ -2,6 +2,8 @@ package eu.utilo.authorization.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import eu.utilo.authorization.entity.OauthClient;
+import eu.utilo.authorization.repository.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * liefert allgemeine Informationen, wie z. B. die Versionsnummer
@@ -21,6 +25,8 @@ public class MainController {
 
     @Autowired
     private Environment environment;
+    @Autowired
+    private ClientRepository clientRepository;
 
     @GetMapping("/version")
     public ObjectNode version() {

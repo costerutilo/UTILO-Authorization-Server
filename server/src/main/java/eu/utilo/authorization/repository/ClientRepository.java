@@ -3,9 +3,13 @@ package eu.utilo.authorization.repository;
 import eu.utilo.authorization.entity.OauthClient;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,6 +19,33 @@ public class ClientRepository {
 
     @Resource
     private JdbcOperations jdbcOperations;
+    // Spring Boot will create and configure DataSource and JdbcTemplate
+    // To use it, just @Autowired
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public List<OauthClient> findAll() {
+
+        return jdbcTemplate.query(
+                "select * from oauth_client",
+                (rs, rowNum) ->
+                        new OauthClient(
+                                rs.getString("id"),
+                                rs.getString("client_id"),
+                                rs.getDate("client_id_issued_at"),
+                                rs.getString("client_secret"),
+                                rs.getDate("client_secret_expires_at"),
+                                rs.getString("client_name"),
+                                rs.getString("client_authentication_methods"),
+                                rs.getString("authorization_grant_types"),
+                                rs.getString("redirect_uris"),
+                                rs.getString("scopes"),
+                                rs.getString("client_settings"),
+                                rs.getString("token_settings")
+                        )
+        );
+
+    }
 
     public Optional<OauthClient> findByClientId(String clientId) {
 

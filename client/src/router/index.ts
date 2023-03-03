@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import LoginView from "@/views/LoginView.vue";
 import AdminView from "@/views/AdminView.vue";
+import ListClients from "@/components/client/ListClients.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,11 @@ const router = createRouter({
       name: 'admin',
       component: AdminView,
       props: route => ( { query: route.query.code } )
+    },
+    {
+      path: '/listClients',
+      name: 'listClients',
+      component: ListClients
     },
   ]
 })

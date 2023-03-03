@@ -43,7 +43,7 @@ public class DefaultSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/login", "/oauth2/login", "/main/version")
+                                .requestMatchers("/login", "/oauth2/login", "/main/version", "/client/findAllClients")
                                 .anonymous()
                                 .anyRequest()
                                 .authenticated()

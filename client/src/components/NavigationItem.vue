@@ -27,6 +27,9 @@
           <li class="nav-item">
             <RouterLink class="nav-link" to="/about">Infos</RouterLink>
           </li>
+          <li class="nav-item">
+            <RouterLink class="nav-link" to="/listClients">Clients</RouterLink>
+          </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <RouterLink class="btn btn-outline-primary my-2 my-sm-0" to="/login">Login</RouterLink>
