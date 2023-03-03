@@ -4,7 +4,7 @@ import App from './App.vue';
 import router from './router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap'; // Javascript
-import './assets/main.css';
+import './assets/css/main.css';
 import axios from 'axios';
 
 const server_url =  import.meta.env.VITE_BASE_URL;

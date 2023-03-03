@@ -35,6 +35,8 @@
     console.log('Admininistrator Client code available: ' + route.query);
     if (route.query && route.query.code) {
       code.value = '' + route.query.code;
+    }
+
     var urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "authorization_code");
     // urlencoded.append("code", "yyJTTI3JqNno1XlSW59qxX3CCytMm-ChoHnqVw3iSUGyT6ltT_tpPclQ8bdSyeApO4IWE442irBiRwntJJzae9BIntpC3_vshTgNhAfbsBlkwh3n50jkAxs3hTqavqsy");
@@ -55,8 +57,7 @@
 
 
   }
-
-
+  
   onMounted(() => {
     init();
   });
