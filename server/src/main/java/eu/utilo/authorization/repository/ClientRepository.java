@@ -33,7 +33,7 @@ public class ClientRepository {
                                 rs.getString("id"),
                                 rs.getString("client_id"),
                                 rs.getDate("client_id_issued_at"),
-                                rs.getString("client_secret"),
+                                null, // rs.getString("client_secret"),
                                 rs.getDate("client_secret_expires_at"),
                                 rs.getString("client_name"),
                                 rs.getString("client_authentication_methods"),
