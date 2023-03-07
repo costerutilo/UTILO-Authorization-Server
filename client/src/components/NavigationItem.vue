@@ -25,14 +25,14 @@
 
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/about">Infos</RouterLink>
+            <RouterLink class="nav-link" to="/about">{{ $t('message.navInfo') }}</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/listClients">Clients</RouterLink>
+            <RouterLink class="nav-link" to="/listClients">{{ $t('message.navClients') }}</RouterLink>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <RouterLink class="btn btn-outline-primary my-2 my-sm-0" to="/login">Login</RouterLink>
+          <RouterLink class="btn btn-outline-primary my-2 my-sm-0" to="/login">{{ $t('message.loginHeadline') }}</RouterLink>
         </form>
 
       </div>

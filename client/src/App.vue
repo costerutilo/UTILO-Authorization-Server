@@ -11,7 +11,7 @@
   <NavigationItem />
   <div class="container">
 
-    <HelloWorld msg="SVV Authorization Server" />
+    <HelloWorld :msg="$t('message.headline')" />
 
   </div>
 

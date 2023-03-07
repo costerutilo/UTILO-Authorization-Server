@@ -1,12 +1,12 @@
 <template>
 
   <div class="container">
-    <h2>Administration</h2>
-    <p>Diese Anwendung ist nur für autorisierte Benutzer zugänglich.</p>
+    <h2>{{ $t('message.theWelcomeHeadline') }}</h2>
+    <p>{{ $t('message.theWelcomeDesc') }}</p>
 
     <ul class="list-group">
-      <li class="list-group-item">Version: {{ serverConfig.version }}</li>
-      <li class="list-group-item">Profil: {{ serverConfig.profile }}</li>
+      <li class="list-group-item">{{ $t('message.theWelcomeVersion') }}: {{ serverConfig.version }}</li>
+      <li class="list-group-item">{{ $t('message.theWelcomeProfile') }}: {{ serverConfig.profile }}</li>
     </ul>
 
   </div>

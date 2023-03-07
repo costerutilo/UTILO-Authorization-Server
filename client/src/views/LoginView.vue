@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>Login</h2>
+    <h2>{{ $t('message.loginHeadline') }}</h2>
   </div>
 </template>
 

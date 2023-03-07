@@ -2,25 +2,33 @@
 
   <div class="container clientList">
 
-    <h2>Client Liste</h2>
+    <h2>{{ $t('message.clientListHeadline') }}</h2>
 
     <table class="table">
       <thead>
       <tr>
+
         <th scope="col">client_id</th>
-        <th scope="col">clientAuthenticationMethods</th>
-        <th scope="col">authorizationGrantTypes</th>
-        <th scope="col">redirectUris</th>
-        <th scope="col">scopes</th>
+        <th scope="col">{{ $t('message.clientAuthenticationMethods') }}</th>
+        <th scope="col">{{ $t('message.authorizationGrantTypes') }}</th>
+        <th scope="col">{{ $t('message.redirectUris') }}</th>
+        <th scope="col">{{ $t('message.scopes') }}</th>
+        <th scope="col"><!-- actions --></th>
+
       </tr>
       </thead>
       <tbody>
       <tr v-for="client in clients" :key="client.id">
+
         <td>{{ client.clientId }}</td>
         <td>{{ client.clientAuthenticationMethods }}</td>
         <td>{{ client.authorizationGrantTypes }}</td>
         <td>{{ client.redirectUris }}</td>
         <td>{{ client.scopes }}</td>
+        <td>
+
+        </td>
+
       </tr>
       </tbody>
     </table>
