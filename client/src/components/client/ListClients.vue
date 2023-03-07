@@ -14,6 +14,7 @@
         <th scope="col">{{ $t('message.redirectUris') }}</th>
         <th scope="col">{{ $t('message.scopes') }}</th>
         <th scope="col"><!-- actions --></th>
+        <th scope="col"><!-- actions --></th>
 
       </tr>
       </thead>
@@ -26,7 +27,16 @@
         <td>{{ client.redirectUris }}</td>
         <td>{{ client.scopes }}</td>
         <td>
-
+          <!-- Edit Button -->
+          <button type="button" class="btn btn-outline-primary" @click="edit(client)">
+            <b-icon-pen-fill />&nbsp;{{ $t('message.edit') }}
+          </button>
+        </td>
+        <td>
+          <!-- Delete Button -->
+          <button type="button" class="btn btn-danger btn-sm" @click="trash(client, $t('message.confirmDeleteClient', { msg: client.clientId }))">
+            <b-icon-trash />
+          </button>
         </td>
 
       </tr>
@@ -40,6 +50,7 @@
 
   import axios from "axios";
   import {Ref, ref, onMounted} from "vue";
+  import { BIconPenFill, BIconTrash } from 'bootstrap-icons-vue';
 
   // reaktive Variablen:
   let clients: Ref<object> = ref([]);
@@ -48,6 +59,26 @@
 
     const tagsResponse = await axios.get('client/findAllClients');
     clients.value = tagsResponse.data;
+
+  }
+
+  /**
+   * show form to edit the client
+   */
+  function edit(client: object) {
+
+    console.info('edit client', client);
+
+  }
+  /**
+   * delete the client - show confirm message
+   */
+  function trash(client: object, msg: string) {
+
+    console.info('delete client', client);
+    if (confirm(msg)) {
+      // delete it
+    }
 
   }
 

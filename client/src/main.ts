@@ -21,6 +21,7 @@ const messages = {
             navInfo: 'Info',
             navClients: 'Clients',
             headline: 'UTILO Authorization Server',
+            edit: 'edit',
             theWelcomeHeadline: 'Administration',
             theWelcomeDesc: 'This application is only accessible to authorized users.',
             theWelcomeVersion: 'Version',
@@ -30,7 +31,8 @@ const messages = {
             clientAuthenticationMethods: 'Client authentication methods',
             authorizationGrantTypes: 'Authorization grant types',
             redirectUris: 'Redirect uris',
-            scopes: 'Scopes'
+            scopes: 'Scopes',
+            confirmDeleteClient: 'Are you sure to delete the client {msg}?'
         }
     },
     de: {
@@ -38,6 +40,7 @@ const messages = {
             navInfo: 'Info',
             navClients: 'Clients',
             headline: 'UTILO Authorization Server',
+            edit: 'ändern',
             theWelcomeHeadline: 'Administration',
             theWelcomeDesc: 'Diese Anwendung ist nur für autorisierte Benutzer zugänglich.',
             theWelcomeVersion: 'Version',
@@ -47,7 +50,8 @@ const messages = {
             clientAuthenticationMethods: 'Client Authentifizierungs Methoden',
             authorizationGrantTypes: 'Autorisation Grant Typen',
             redirectUris: 'Redirect URIs',
-            scopes: 'Scopes'
+            scopes: 'Scopes',
+            confirmDeleteClient: 'Wollen Sie den Client {msg} wirklich löschen?'
         }
     }
 }
