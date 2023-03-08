@@ -1,4 +1,5 @@
-import { createApp } from 'vue';
+import Vue, { createApp } from '@vue/compat';
+import BootstrapVue from 'bootstrap-vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
@@ -71,6 +72,8 @@ const i18n = createI18n({
     // If you need to specify other options, you can set other options
     // ...
 })
+
+Vue.use(BootstrapVue);
 const app = createApp(App);
 
 app.use(i18n);

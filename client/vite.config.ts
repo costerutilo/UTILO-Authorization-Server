@@ -18,7 +18,8 @@ export default defineConfig(({command, mode}) => {
     plugins: [vue()],
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        vue: '@vue/compat',
       }
     },
     // dev specific config
