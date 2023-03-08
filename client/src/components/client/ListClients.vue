@@ -28,9 +28,7 @@
         <td>{{ client.scopes }}</td>
         <td>
           <!-- Edit Button -->
-          <button type="button" class="btn btn-outline-primary" @click="edit(client)">
-            <b-icon-pen-fill />&nbsp;{{ $t('message.edit') }}
-          </button>
+          <create-or-edit-client :client="client" />
         </td>
         <td>
           <!-- Delete Button -->
@@ -51,6 +49,7 @@
   import axios from "axios";
   import {Ref, ref, onMounted} from "vue";
   import { BIconPenFill, BIconTrash } from 'bootstrap-icons-vue';
+  import CreateOrEditClient from "@/components/client/CreateOrEditClient.vue";
 
   // reaktive Variablen:
   let clients: Ref<object> = ref([]);
