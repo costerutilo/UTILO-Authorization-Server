@@ -16,41 +16,12 @@
     </button>
 
     <!-- Modal to edit or to create client -->
-    <div class="modal fade"
-         id="createOrEditClientModal"
-         tabindex="-1"
-         aria-labelledby="createOrEditClientModalLabel"
-         aria-hidden="true">
-
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="createOrEditClientModalLabel">
-              {{ client && client.id != null ? $t('message.editClient') : $t('message.createClient') }}
-            </h5>
-            <button type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    :aria-label="$t('message.close')">
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Form to edit or to create client -->
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              {{ $t('message.close') }}
-            </button>
-            <button type="button" class="btn btn-primary">
-              {{ $t('message.save') }}
-            </button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
+    <b-modal v-model="modalShow"
+             id="createOrEditClientModal"
+             size="xl"
+             :title="client && client.id != null ? $t('message.editClient') : $t('message.createClient')">
+      hallo modal
+    </b-modal>
 
   </span>
 
@@ -60,16 +31,17 @@
   import axios from "axios";
   import {Ref, ref, onMounted, watch} from "vue";
   import { BIconPenFill, BIconTrash } from 'bootstrap-icons-vue';
-  import 'bootstrap';
+  import { BModal } from "bootstrap-vue";
 
   // Parameter
   const props = defineProps({
     client: Object
   });
 
-      // reaktive Variablen:
+  // reaktive Variablen:
   /** new oder client to edit */
   let myClient: Ref<object> = ref([]);
+  let modalShow: Ref<boolean> = ref(false);
 
   /**
    * show form to edit the client
@@ -78,11 +50,7 @@
 
     console.info('edit client', client);
     myClient.value = client;
-    // open Modal with form:
-    var myModal = new bootstrap.Modal(document.getElementById('createOrEditClientModal'), {
-      keyboard: false
-    })
-    myModal.show();
+    modalShow.value = true;
 
   }
   /**
@@ -94,6 +62,7 @@
     myClient.value = {
       id: null
     };
+    modalShow.value = true;
 
   }
 
