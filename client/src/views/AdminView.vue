@@ -72,72 +72,62 @@
 
     const url =  'http://127.0.0.1:9000/oauth2/token';
 
-    var credentials = btoa(import.meta.env.VITE_CLIENT_ID + ':' + 'secret');
-    var basicAuth = 'Basic ' + credentials;
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    let data = {
-      "grant_type": "authorization_code",
-      "code": code,
-      "redirect_uri": import.meta.env.VITE_AUTHORIZE_REDIRECT_URI,
-      "client_id": import.meta.env.VITE_CLIENT_ID,
-      "client_secret":  'secret',
-    }
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "authorization_code");
+    urlencoded.append("code", code);
+    urlencoded.append("redirect_uri", "http://127.0.0.1:9010/admin");
+    urlencoded.append("client_id", "utilo-client");
+    urlencoded.append("client_secret", "secret");
 
-    let requestOptions = {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'no-cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'cache-control': 'no-cache',
-          'content-type': 'application/x-www-form-urlencoded',
-          'Authorization': basicAuth, // Here you can add your token -> not possible with no-cors???
-        },
-        // redirect: 'follow', // manual, *follow, error
-        // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
-    }
+    var requestOptions = {
+      method: 'POST',
+      mode: 'no-cors', // no-cors, *cors, same-origin
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
+    };
 
-    fetch(url, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-          console.log('result: ', result);
-          token.value = result;
+    fetch("http://127.0.0.1:9000/oauth2/token", requestOptions)
+        .then((response) => {
+          return response.text();
+        })
+        .then((data) => {
+          console.log('data: ' + data);
         })
         .catch(error => console.log('error', error));
 
   }
 
-  // async function getToken(code: string) {
-  //
-  //   console.info('getToken', code);
-  //   const params = {
-  //     grant_type: 'authorization_code',
-  //     code: code,
-  //     redirect_uri: import.meta.env.VITE_AUTHORIZE_REDIRECT_URI,
-  //     'Content-Type': "text/plain"
-  //   };
-  //
-  //   var credentials = btoa(import.meta.env.VITE_CLIENT_ID + ':' + 'secret');
-  //   var basicAuth = 'Basic ' + credentials;
-  //
-  //   axios.post(
-  //       'oauth2/token',
-  //       params,
-  //   ).then(response => token.value = response.data);
-  //
-  //   const user = await axios.post(
-  //       'oauth2/token',
-  //       { headers: { 'Authorization': basicAuth } }
-  //   );
-  //
-  // }
+  async function getToken(code: string) {
+
+    console.info('getToken', code);
+
+    const headers =  {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+    const params = {
+      method: 'POST',
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: import.meta.env.VITE_AUTHORIZE_REDIRECT_URI,
+      client_id: "utilo-client",
+      client_secret: "secret",
+      mode: 'no-cors',
+      headers: headers,
+      withCredentials: true
+    };
+
+    axios(
+        'oauth2/token',
+        params
+    ).then(response => token.value = response.data);
+
+  }
   //
   // async function getAuthToken(code: string) {
-  //
-  //   var credentials = btoa(import.meta.env.VITE_CLIENT_ID + ':' + 'secret');
-  //   var basicAuth = 'Basic ' + credentials;
-  //   console.info('Basic', credentials)
   //
   //   const data = new URLSearchParams();
   //   data.append('grant_type', 'authorization_code');
@@ -146,14 +136,10 @@
   //   const fetchAuthToken = await axios({
   //     url: 'oauth2/token',
   //     method: 'POST',
-  //     headers: {
-  //       'authorization': basicAuth,
-  //       'utilo': 'test'
-  //     },
-  //     data,
-  //     withCredentials: true,
+  //     data
   //   });
   //
+  //   console.log('token' , fetchAuthToken);
   //   return fetchAuthToken;
   //
   // }
