@@ -101,6 +101,7 @@ public class Bootstrap implements
                     .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                     .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                     .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                    .authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
                     .redirectUri("http://127.0.0.1:9010/admin")
                     .redirectUri("https://www.utilo.eu")
                     .scope(OidcScopes.OPENID)

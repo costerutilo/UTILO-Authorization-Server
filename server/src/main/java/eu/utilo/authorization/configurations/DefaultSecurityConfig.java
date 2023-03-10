@@ -19,6 +19,8 @@ import eu.utilo.authorization.services.MySQLUserDetailServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,8 +42,10 @@ import java.util.Arrays;
 public class DefaultSecurityConfig {
 
     @Bean
+    @Order(2)
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorize ->
+
+        http.cors().and().authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/login", "/oauth2/login", "/main/version", "/client/findAllClients")
                                 .anonymous()
@@ -54,6 +58,22 @@ public class DefaultSecurityConfig {
                 )
                 .csrf().disable();
         return http.build();
+
+//        http.anonymous().disable();
+//        http.cors().and().authorizeHttpRequests()
+//                //.requestMatchers(HttpMethod.POST, "/user/create-account").permitAll()
+//                .requestMatchers("/oauth2/**", "/user/**", "/client/**", "/swagger-ui/**", "/login", "/vendor/**", "/favicon.ico")
+//                .permitAll();
+//        http
+//                .authorizeHttpRequests(authorize -> authorize
+//                        //	.requestMatchers(HttpMethod.POST, "/user/**").permitAll()
+//                        .anyRequest().authenticated())
+//                // Form login handles the redirect to the login page from the
+//                // authorization server filter chain
+//                .formLogin(Customizer.withDefaults());
+//        http.csrf().disable();
+//        return http.build();
+
     }
 
     @Bean

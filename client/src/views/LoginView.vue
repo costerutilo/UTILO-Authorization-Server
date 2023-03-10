@@ -20,7 +20,7 @@
     console.info('openLoginWindow base URL: ', import.meta.env.VITE_BASE_URL);
     console.info('LOGIN URI: ', import.meta.env.VITE_BASE_URL + loginurl);
 
-    window.open(
+    window.open (
         import.meta.env.VITE_BASE_URL + loginurl + import.meta.env.VITE_AUTHORIZE_REDIRECT_URI,
         "_parent"
     );
