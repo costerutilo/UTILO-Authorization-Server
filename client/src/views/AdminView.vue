@@ -92,6 +92,8 @@
 
     fetch("http://127.0.0.1:9000/oauth2/token", requestOptions)
         .then((response) => {
+          console.log('headers:');
+          console.log(...response.headers);
           return response.text();
         })
         .then((data) => {
