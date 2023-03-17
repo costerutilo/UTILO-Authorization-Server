@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
 	id 'war'
-	id 'org.springframework.boot' version '3.0.1'
+	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -29,7 +29,7 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	implementation 'org.springframework.security:spring-security-oauth2-authorization-server:1.0.0'
+	implementation 'org.springframework.security:spring-security-oauth2-authorization-server:1.0.1'
 	// Apache Commons
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
